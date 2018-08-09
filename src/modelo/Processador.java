@@ -1,10 +1,11 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Processador {
+public class Processador{
 
     private List<Processo> emFila = null;
     private List<Processo> concluidos = null;
@@ -31,14 +32,18 @@ public class Processador {
     }
 
     public void executarProcesso() throws InterruptedException {
+        Collections.sort(emFila);
         do {
             TimeUnit.SECONDS.sleep(this.emFila.get(0).getTempoDeExecucao());
             System.out.println("Processo " + this.emFila.get(0).getIdProcesso()
-                    + " executado e retirado da fila de processos!");
+                    + " executado em " + this.emFila.get(0).getTempoDeExecucao() 
+                    + " retirado da fila de processos!");
             this.concluidos.add(this.emFila.get(0));
             this.emFila.remove(0);
 
         } while (!this.emFila.isEmpty());
     }
+
+
 
 }
